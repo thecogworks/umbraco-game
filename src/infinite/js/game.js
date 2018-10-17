@@ -66,7 +66,7 @@ var Game = {
   },
 
   spawnObstacle: function() {
-    var obstacle = this.obstacles.create(game.world.width, game.world.height - 150, "obstacle");
+    var obstacle = this.obstacles.create(game.world.width, game.world.height - 134, "obstacle");
 
     obstacle.body.velocity.x = -this.current_speed;
 
