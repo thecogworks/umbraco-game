@@ -9,13 +9,13 @@ var Game = {
 
   preload: function() {
     game.load.image("ground", "assets/ground.png");
-    game.load.atlas('player', 'assets/player.png', 'assets/player.json');
+    game.load.atlas("player", "assets/player.png", "assets/player.json");
     game.load.image("obstacle", "assets/obstacle.png");
-    game.load.image('background', 'assets/background.png');
+    game.load.image("background", "assets/background.png");
   },
 
   create: function() {
-    game.add.image(0, 0, 'background');
+    game.add.image(0, 0, "background");
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
