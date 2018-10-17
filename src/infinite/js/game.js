@@ -31,7 +31,10 @@ var Game = {
 
     // register key events
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+
     spaceKey.onDown.add(this.jump, this);
+    upKey.onDown.add(this.jump, this);
 
     // register obstacles
     this.obstacles = game.add.group();
