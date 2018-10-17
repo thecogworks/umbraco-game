@@ -1,0 +1,74 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+	<script type="text/javascript" src="js/game/Actor.js"></script>
+	<script type="text/javascript" src="js/game/ActorState.js"></script>
+	<script type="text/javascript" src="js/game/fsm.js"></script>
+	<script type="text/javascript" src="js/game/TMXlevel.js"></script>
+	<script type="text/javascript" src="js/game/Player.js"></script>
+	<script type="text/javascript" src="js/game/Enemy.js"></script>
+	<script type="text/javascript" src="js/game/EnemyMinion.js"></script>
+	<script type="text/javascript" src="js/game/EnemySnail.js"></script>
+	<script type="text/javascript" src="js/game/EnemyWasp.js"></script>
+	<script type="text/javascript" src="js/game/stab.js"></script>
+	<script type="text/javascript" src="js/game/Goal.js"></script>
+	<script type="text/javascript" src="js/game/HitBox.js"></script>
+	<script type="text/javascript" src="js/game/title.js"></script>
+	<script type="text/javascript" src="js/game/gameover.js"></script>
+	<script type="text/javascript" src="js/game/gameclear.js"></script>
+	<script type="text/javascript" src="js/game/hud.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    var pixel = { scale: 4, canvas: null, context: null, width: 0, height: 0 }
+    var scaling_initialised = false;
+    
+    function boot(){
+        game = new Phaser.Game(200,150);
+        game.points = 0;
+        game.state.add("title", TitleScreen);
+        game.state.add("tmxlevel", TmxLevel);
+        game.state.add('gameover', GameOver);
+        game.state.add('gameclear', GameClear);
+        game.state.start('title', TitleScreen)
+    }
+    
+    function init(){
+        if(!scaling_initialised){        
+            game.canvas.style["display"] = "none";
+            
+            pixel.canvas = Phaser.Canvas.create(game.width * pixel.scale, game.height * pixel.scale);
+            
+            pixel.context = pixel.canvas.getContext('2d');
+            
+            Phaser.Canvas.addToDOM(pixel.canvas);
+            
+            Phaser.Canvas.setSmoothingEnabled(pixel.context, false);
+            
+            pixel.width = pixel.canvas.width;
+            pixel.height = pixel.canvas.height;
+            scaling_initialised = true;
+        }
+    }
+        
+    function render(){
+            pixel.context.drawImage(game.canvas, 0, 0, game.width, game.height, 0, 0, pixel.width, pixel.height);
+    }
+    
+    window.onload = function (){
+        boot();
+        
+    }
+
+</script>
+
+</body>
+</html>

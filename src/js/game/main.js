@@ -1,0 +1,2 @@
+HOR_RES = 800;
+VER_RES = 600;
