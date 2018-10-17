@@ -9,20 +9,21 @@ var Game = {
 
   preload: function() {
     game.load.image("ground", "assets/ground.png");
-    game.load.image("player", "assets/player.png");
+    game.load.atlas('player', 'assets/player.png', 'assets/player.json');
     game.load.image("obstacle", "assets/obstacle.png");
+    game.load.image('background', 'assets/background.png');
   },
 
   create: function() {
-    game.stage.backgroundColor = "#71c5cf";
+    game.add.image(0, 0, 'background');
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.ground = game.add.sprite(0, game.world.height - 100, "ground");
+    this.ground = game.add.sprite(0, game.world.height - 84, "ground");
     game.physics.arcade.enable(this.ground);
     this.ground.body.immovable = true;
 
-    this.player = game.add.sprite(100, game.world.height - 150, "player");
+    this.player = game.add.sprite(100, game.world.height - 250, "player");
     game.physics.arcade.enable(this.player);
     this.player.body.gravity.y = 1000;
 
