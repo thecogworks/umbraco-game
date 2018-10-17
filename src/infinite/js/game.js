@@ -19,17 +19,21 @@ var Game = {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    // register ground
     this.ground = game.add.sprite(0, game.world.height - 84, "ground");
     game.physics.arcade.enable(this.ground);
     this.ground.body.immovable = true;
 
+    // register player sprite
     this.player = game.add.sprite(100, game.world.height - 250, "player");
     game.physics.arcade.enable(this.player);
     this.player.body.gravity.y = 1000;
 
+    // register key events
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     spaceKey.onDown.add(this.jump, this);
 
+    // register obstacles
     this.obstacles = game.add.group();
     this.obstacles.enableBody = true;
 
