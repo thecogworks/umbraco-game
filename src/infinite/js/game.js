@@ -25,7 +25,7 @@ var Game = {
     this.ground.body.immovable = true;
 
     // register player sprite
-    this.player = game.add.sprite(100, game.world.height - 250, "player");
+    this.player = game.add.sprite(72, game.world.height - 181, "player");
     game.physics.arcade.enable(this.player);
     this.player.body.gravity.y = 1000;
 
