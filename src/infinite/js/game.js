@@ -16,7 +16,7 @@ var Game = {
 
   create: function() {
     game.add.image(0, 0, 'background');
-
+    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.ground = game.add.sprite(0, game.world.height - 84, "ground");
