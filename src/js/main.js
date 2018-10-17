@@ -29,10 +29,13 @@ var score = 0;
 function preload() {
     // map made with Tiled in JSON format
     this.load.tilemapTiledJSON('map', 'assets/map.json');
+
     // tiles in spritesheet 
-    this.load.spritesheet('tiles', 'assets/tiles.png', {frameWidth: 70, frameHeight: 70});
+    this.load.spritesheet('tiles', 'assets/tiles.png', { frameWidth: 70, frameHeight: 70 });
+
     // simple coin image
     this.load.image('coin', 'assets/coinGold.png');
+
     // player animations
     this.load.atlas('player', 'assets/player.png', 'assets/player.json');
 }
@@ -43,13 +46,16 @@ function create() {
 
     // tiles for the ground layer
     var groundTiles = map.addTilesetImage('tiles');
+
     // create the ground layer
     groundLayer = map.createDynamicLayer('World', groundTiles, 0, 0);
+
     // the player will collide with this layer
     groundLayer.setCollisionByExclusion([-1]);
 
     // coin image used as tileset
     var coinTiles = map.addTilesetImage('coin');
+
     // add coins as tiles
     coinLayer = map.createDynamicLayer('Coins', coinTiles, 0, 0);
 
@@ -69,6 +75,7 @@ function create() {
     this.physics.add.collider(groundLayer, player);
 
     coinLayer.setTileIndexCallback(17, collectCoin, this);
+
     // when the player overlaps with a tile with index 17, collectCoin 
     // will be called    
     this.physics.add.overlap(player, coinLayer);
@@ -80,6 +87,7 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
+
     // idle with only one frame, so repeat is not neaded
     this.anims.create({
         key: 'idle',
@@ -87,11 +95,11 @@ function create() {
         frameRate: 10,
     });
 
-
     cursors = this.input.keyboard.createCursorKeys();
 
     // set bounds so the camera won't go outside the game world
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
     // make the camera follow the player
     this.cameras.main.startFollow(player);
 
@@ -103,6 +111,7 @@ function create() {
         fontSize: '20px',
         fill: '#ffffff'
     });
+
     // fix the text to the camera
     text.setScrollFactor(0);
 }
