@@ -33,6 +33,9 @@ function preload() {
     // tiles in spritesheet 
     this.load.spritesheet('tiles', 'assets/tiles.png', { frameWidth: 70, frameHeight: 70 });
 
+    // spider in spritesheet 
+    this.load.spritesheet('spider', 'assets/spider.png', { frameWidth: 42, frameHeight: 32 });
+
     // simple coin image
     this.load.image('coin', 'assets/coinGold.png');
 
