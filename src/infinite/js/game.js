@@ -6,6 +6,8 @@ var Game = {
   speed_inc_amount: 0.05,
   time_until_spawn: null,
   last_spawn_time: null,
+  scoreCount: 0,
+  scoreMessage: null,
 
   preload: function() {
     game.load.image("ground", "assets/ground.png");
@@ -18,6 +20,9 @@ var Game = {
     game.add.image(0, 0, 'background');
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    this.resetScoreCount();
+    this.scoreMessage = game.add.text(20, 20, this.getScoreText(), { font: "20px Arial", fill: "#000000", align: "left"});
 
     this.ground = game.add.sprite(0, game.world.height - 84, "ground");
     game.physics.arcade.enable(this.ground);
@@ -54,17 +59,36 @@ var Game = {
 
   jump: function() {
     if (this.player.body.touching.down) {
-      this.player.body.velocity.y = -500;
+      this.player.body.velocity.y = -700;
     }
   },
 
   spawnObstacle: function() {
     var obstacle = this.obstacles.create(game.world.width, game.world.height - 150, "obstacle");
 
+    this.updateScoreCount(1);
+
     obstacle.body.velocity.x = -this.current_speed;
 
     obstacle.checkWorldBounds = true;
     obstacle.outOfBoundsKill = true;
+  },
+  
+  updateScoreCount: function(numberToAddToScore) {
+    this.scoreCount += numberToAddToScore;
+    this.updateScoreMessage();
+  },
+
+  updateScoreMessage: function() {
+    this.scoreMessage.setText(this.getScoreText());
+  },
+
+  getScoreText: function() {
+    return "Score: " + this.scoreCount;
+  },
+
+  resetScoreCount: function() {
+    this.scoreCount = 0;
   },
 
   increaseSpeed: function() {
