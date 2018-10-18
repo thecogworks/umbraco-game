@@ -1,7 +1,7 @@
 var Game = {
   player: null,
   ground: null,
-  obstacles: null,
+  enemies: null,
   current_speed: 200,
   speed_inc_amount: 0.05,
   time_until_spawn: null,
@@ -11,8 +11,8 @@ var Game = {
 
   preload: function() {
     game.load.image("ground", "assets/ground.png");
-    game.load.atlas("player", "assets/player.png", "assets/player.json");
-    game.load.image("obstacle", "assets/obstacle.png");
+    game.load.image("player", "assets/hero-01.png");
+    game.load.image("enemy", "assets/enemy-01.png");
     game.load.image("background", "assets/background.png");
   },
 
@@ -30,7 +30,7 @@ var Game = {
     this.ground.body.immovable = true;
 
     // register player sprite
-    this.player = game.add.sprite(72, game.world.height - 181, "player");
+    this.player = game.add.sprite(72, game.world.height - 182, "player");
     game.physics.arcade.enable(this.player);
     this.player.body.gravity.y = 1000;
 
@@ -41,9 +41,9 @@ var Game = {
     spaceKey.onDown.add(this.jump, this);
     upKey.onDown.add(this.jump, this);
 
-    // register obstacles
-    this.obstacles = game.add.group();
-    this.obstacles.enableBody = true;
+    // register enemies
+    this.enemies = game.add.group();
+    this.enemies.enableBody = true;
 
     this.time_until_spawn = Math.random() * 1000 + 1000;
     this.last_spawn_time = game.time.time;
@@ -54,31 +54,31 @@ var Game = {
   update: function() {
     this.increaseSpeed();
     game.physics.arcade.collide(this.player, this.ground);
-    game.physics.arcade.overlap(this.player, this.obstacles, this.endGame, null, this);
+    game.physics.arcade.overlap(this.player, this.enemies, this.endGame, null, this);
 
     var current_time = game.time.time;
     if (current_time - this.last_spawn_time > this.time_until_spawn) {
       this.time_until_spawn = Math.random() * 1000 + (1000 - this.current_speed);
       this.last_spawn_time = current_time;
-      this.spawnObstacle();
+      this.spawnEnemy();
     }
   },
 
   jump: function() {
     if (this.player.body.touching.down) {
-      this.player.body.velocity.y = -500;
+      this.player.body.velocity.y = -600;
     }
   },
 
-  spawnObstacle: function() {
-    var obstacle = this.obstacles.create(game.world.width, game.world.height - 134, "obstacle");
+  spawnEnemy: function() {
+    var enemy = this.enemies.create(game.world.width, game.world.height - 182, "enemy");
 
     this.updateScoreCount(1);
 
-    obstacle.body.velocity.x = -this.current_speed;
+    enemy.body.velocity.x = -this.current_speed;
 
-    obstacle.checkWorldBounds = true;
-    obstacle.outOfBoundsKill = true;
+    enemy.checkWorldBounds = true;
+    enemy.outOfBoundsKill = true;
   },
   
   updateScoreCount: function(numberToAddToScore) {
@@ -105,6 +105,7 @@ var Game = {
   },
 
   endGame: function() {
+    alert("Final " + this.getScoreText());
     game.state.start("Menu");
   }
 };
