@@ -3,7 +3,7 @@ var Game = {
   ground: null,
   enemies: null,
   current_speed: 200,
-  speed_inc_amount: 0.05,
+  speed_inc_amount: 0.2,
   time_until_spawn: null,
   last_spawn_time: null,
   scoreCount: 0,
@@ -19,7 +19,6 @@ var Game = {
       game.load.image(this.enemyNames[i], "assets/" + this.enemyNames[i] + ".png");
       console.log(this.enemyNames[i]);
     }
-
   },
 
   create: function() {
@@ -38,7 +37,7 @@ var Game = {
     // register player sprite
     this.player = game.add.sprite(72, game.world.height - 182, "player");
     game.physics.arcade.enable(this.player);
-    this.player.body.gravity.y = 1000;
+    this.player.body.gravity.y = 1500;
 
     // register key events
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -64,7 +63,7 @@ var Game = {
 
     var current_time = game.time.time;
     if (current_time - this.last_spawn_time > this.time_until_spawn) {
-      this.time_until_spawn = Math.random() * 1000 + (1400 - this.current_speed);
+      this.time_until_spawn = Math.random() * 1000 + (1300 - this.current_speed);
       this.last_spawn_time = current_time;
       this.spawnEnemy();
     }
