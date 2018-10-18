@@ -8,6 +8,9 @@ var Menu = {
   create: function() {
     game.add.image(0, 0, 'background');
 
+    spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    spaceKey.onDown.add(this.startGame, this);
+
     startButton = game.add.button(game.width/2, game.height/2, "startBtn", this.startGame, this);
     startButton.anchor.setTo(0.5);
 
@@ -18,6 +21,7 @@ var Menu = {
   startGame: function() {
     game.state.start("Game");
   },
+
   goFull: function gofull() {
 
     if (game.scale.isFullScreen)
