@@ -8,12 +8,18 @@ var Game = {
   last_spawn_time: null,
   scoreCount: 0,
   scoreMessage: null,
+  enemyNames: ["enemy-01", "enemy-02", "enemy-03"],
 
   preload: function() {
     game.load.image("ground", "assets/ground.png");
     game.load.image("player", "assets/hero-01.png");
-    game.load.image("enemy", "assets/enemy-01.png");
     game.load.image("background", "assets/background.png");
+
+    for (var i=0; i <= this.enemyNames.length; i++) {
+      game.load.image(this.enemyNames[i], "assets/" + this.enemyNames[i] + ".png");
+      console.log(this.enemyNames[i]);
+    }
+
   },
 
   create: function() {
@@ -71,7 +77,7 @@ var Game = {
   },
 
   spawnEnemy: function() {
-    var enemy = this.enemies.create(game.world.width, game.world.height - 182, "enemy");
+    var enemy = this.enemies.create(game.world.width, game.world.height - 149, this.getRandomEnemy());
 
     this.updateScoreCount(1);
 
@@ -80,7 +86,11 @@ var Game = {
     enemy.checkWorldBounds = true;
     enemy.outOfBoundsKill = true;
   },
-  
+
+  getRandomEnemy: function() {
+    return this.enemyNames[Math.floor(Math.random() * this.enemyNames.length)];
+  },
+
   updateScoreCount: function(numberToAddToScore) {
     this.scoreCount += numberToAddToScore;
     this.updateScoreMessage();
