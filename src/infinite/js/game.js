@@ -58,7 +58,7 @@ var Game = {
 
     var current_time = game.time.time;
     if (current_time - this.last_spawn_time > this.time_until_spawn) {
-      this.time_until_spawn = Math.random() * 1000 + (1000 - this.current_speed);
+      this.time_until_spawn = Math.random() * 1000 + (1400 - this.current_speed);
       this.last_spawn_time = current_time;
       this.spawnEnemy();
     }
